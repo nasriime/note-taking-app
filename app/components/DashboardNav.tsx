@@ -1,13 +1,9 @@
-'use client';
+"use client";
 import { cn } from "@/lib/utils";
-import { Home, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { navItems } from "./UserNav";
 
-export const navItems = [
-  { name: "Home", href: "/dashboard", icon: Home },
-  { name: "Settings", href: "/dashboard/settings", icon: Settings },
-];
 export default function DashboardNav() {
   const pathname = usePathname();
   return (
