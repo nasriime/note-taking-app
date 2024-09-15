@@ -14,7 +14,9 @@ export async function Navbar() {
     <nav className="border-b bg-background h-[10vh] flex items-center justify-center">
       <div className="container flex items-center justify-between">
         <Link href="/">
-          <h1 className="font-bold text-3xl">Note Taking</h1>
+          <h1 className="font-bold text-3xl">
+            Note <span className="text-primary">Taking</span>
+          </h1>
         </Link>
         <div className="flex items-center gap-x-5">
           <ThemeToggle />
