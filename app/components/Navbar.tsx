@@ -26,7 +26,6 @@ export async function Navbar() {
             <UserNav
               email={user?.email as string}
               name={user?.given_name as string}
-              image={user?.picture as string}
             />
           ) : (
             <div className="flex items-center gap-x-5">

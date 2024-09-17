@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { DoorClosed, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,25 +13,20 @@ import {
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import Link from "next/link";
 
-export const navItems = [
-  { name: "Home", href: "/dashboard", icon: Home },
-];
+export const navItems = [{ name: "Home", href: "/dashboard", icon: Home }];
 
 export default function UserNav({
   name,
   email,
-  image,
 }: {
   name: string;
   email: string;
-  image: string;
 }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-10 w-10 rounded-full">
-            <AvatarImage src={image} alt="@shadcn" />
             <AvatarFallback>{name.slice(0, 1).toUpperCase()}</AvatarFallback>
           </Avatar>
         </Button>
