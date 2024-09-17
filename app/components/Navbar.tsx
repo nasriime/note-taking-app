@@ -15,7 +15,7 @@ export async function Navbar() {
 
   return (
     <nav className="border-b bg-background h-[10vh] flex items-center justify-center">
-      <div className="container flex items-center justify-between">
+      <div className="container px-4 flex items-center justify-between">
         <Link href="/">
           <NotebookPen className="w-10 h-10 text-primary" />
         </Link>
