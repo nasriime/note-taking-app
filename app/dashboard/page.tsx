@@ -7,11 +7,16 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Card } from "@/components/ui/card";
 import { TrashDelete } from "../components/Submitbuttons";
 import { revalidatePath } from "next/cache";
+import Search from "../components/Search";
 
-async function getData(userId: string) {
+async function getData(userId: string, query: string) {
   const data = await prisma.note.findMany({
     where: {
       userId,
+      title: {
+        contains: query,
+        mode: "insensitive",
+      },
     },
     orderBy: {
       createdAt: "desc",
@@ -21,11 +26,16 @@ async function getData(userId: string) {
   return data;
 }
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: { query?: string };
+}) {
+  const query = searchParams?.query || "";
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-  const data = await getData(user?.id as string);
-
+  const data = await getData(user?.id as string, query);
+  console.log("data", data);
   async function deleteNote(formData: FormData) {
     "use server";
 
@@ -54,18 +64,17 @@ export default async function DashboardPage() {
           <Link href="/dashboard/new">Create a new Note</Link>
         </Button>
       </div>
-
+      <div className="max-w-[400px]">
+        <Search />
+      </div>
       {data.length < 1 ? (
         <div className="flex min-h-[400px] flex-col items-center justify-center rounded-md border border-dashed p-8 text-center animate-in fade-in-50">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
             <File className="w-10 h-10 text-primary" />
           </div>
-          <h2 className="mt-6 text-xl font-semibold">
-            You dont have any notes created
-          </h2>
+          <h2 className="mt-6 text-xl font-semibold">No notes found</h2>
           <p className="mb-8 mt-2 text-center text-sm leading-6 text-muted-foreground max-w-sm mx-auto">
-            You currently dont have any notes. please create some so that you
-            can see them right here.
+            Please create some so that you can see them right here.
           </p>
         </div>
       ) : (
