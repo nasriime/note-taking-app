@@ -53,19 +53,22 @@ export default async function DynamicRoute({
     const content = formData.get("content") as string;
     const version = formData.get("version") as string;
 
-    await prisma.note.update({
-      where: {
-        id: data?.id,
-        userId: user.id,
-      },
-      data: {
-        content,
-        title,
-        version: Number(version) + 1,
-        updatedAt: new Date(),
-      },
-    });
-
+    try {
+      await prisma.note.update({
+        where: {
+          id: data?.id,
+          userId: user.id,
+        },
+        data: {
+          content,
+          title,
+          version: Number(version) + 1,
+          updatedAt: new Date(),
+        },
+      });
+    } catch (e) {
+      return e;
+    }
     revalidatePath("/dashboard");
 
     return redirect("/dashboard");
@@ -92,12 +95,12 @@ export default async function DynamicRoute({
           </div>
 
           <Input
-              required
-              type="hidden"
-              name="version"
-              placeholder="Version for your note"
-              defaultValue={data?.version}
-            />
+            required
+            type="hidden"
+            name="version"
+            placeholder="Version for your note"
+            defaultValue={data?.version}
+          />
 
           <div className="flex flex-col gap-y-2">
             <Label>Content</Label>

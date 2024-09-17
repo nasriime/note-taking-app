@@ -40,11 +40,15 @@ export default async function DashboardPage({
 
     const noteId = formData.get("noteId") as string;
 
-    await prisma.note.delete({
-      where: {
-        id: noteId,
-      },
-    });
+    try {
+      await prisma.note.delete({
+        where: {
+          id: noteId,
+        },
+      });
+    } catch (e) {
+      return e;
+    }
 
     revalidatePath("/dasboard");
   }
@@ -85,13 +89,14 @@ export default async function DashboardPage({
             >
               <div>
                 <h2 className="font-semibold text-xl text-primary">
-                  {item.title} 
+                  {item.title}
                 </h2>
                 <p className="line-clamp-1">{item.content}</p>
                 <p className="text-sm text-muted-foreground">
                   {new Intl.DateTimeFormat("en-US", {
                     dateStyle: "full",
-                  }).format(new Date(item.createdAt))} v.{item.version}
+                  }).format(new Date(item.createdAt))}{" "}
+                  v.{item.version}
                 </p>
               </div>
 

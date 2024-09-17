@@ -28,15 +28,18 @@ export default async function NewNoteRoute() {
 
     const title = formData.get("title") as string;
     const content = formData.get("content") as string;
-
-    await prisma.note.create({
-      data: {
-        userId: user?.id,
-        content: content,
-        version: 1,
-        title: title,
-      },
-    });
+    try {
+      await prisma.note.create({
+        data: {
+          userId: user?.id,
+          content: content,
+          version: 1,
+          title: title,
+        },
+      });
+    } catch (e) {
+      return e;
+    }
 
     return redirect("/dashboard");
   }
