@@ -32,7 +32,7 @@ export default function UserNav({
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-10 w-10 rounded-full">
             <AvatarImage src={image} alt="@shadcn" />
-            <AvatarFallback>{name}</AvatarFallback>
+            <AvatarFallback>{name.slice(0, 1).toUpperCase()}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
