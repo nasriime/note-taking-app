@@ -35,7 +35,6 @@ export default async function DashboardPage({
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   const data = await getData(user?.id as string, query);
-  console.log("data", data);
   async function deleteNote(formData: FormData) {
     "use server";
 
@@ -86,12 +85,13 @@ export default async function DashboardPage({
             >
               <div>
                 <h2 className="font-semibold text-xl text-primary">
-                  {item.title}
+                  {item.title} 
                 </h2>
-                <p>
+                <p className="line-clamp-1">{item.content}</p>
+                <p className="text-sm text-muted-foreground">
                   {new Intl.DateTimeFormat("en-US", {
                     dateStyle: "full",
-                  }).format(new Date(item.createdAt))}
+                  }).format(new Date(item.createdAt))} v.{item.version}
                 </p>
               </div>
 

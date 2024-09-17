@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { DoorClosed, Home, Settings } from "lucide-react";
+import { DoorClosed, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,7 +15,6 @@ import Link from "next/link";
 
 export const navItems = [
   { name: "Home", href: "/dashboard", icon: Home },
-  { name: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 
 export default function UserNav({
